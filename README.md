@@ -20,7 +20,10 @@ All installation is done via your machine's command-line.
 When we make releases to the API, we strive for consistency across all of the various language-specific flavors. Meaning -- when we release an update to the core Chinwag API (in C99), we update all sister components. This should guarantee a consistent version release number across all equivalent libraries.
 
 	EXAMPLE IN
-	import "github.com/vulcanca/chinwag-go"
+	import (
+		"fmt"
+		"github.com/vulcanca/chinwag-go"
+	)	
 	fwt.Println(chinwag.Version)
 
 	EXAMPLE OUT
@@ -38,17 +41,55 @@ Where applicable, a standardized delimiter character-array/String (such as `CW_D
 
 	EXAMPLE IN
 	import "github.com/vulcanca/chinwag-go"
-	seuss := chinwag.Open("Seussian")
-	latin := chinwag.Open("Latin")
+	seuss := chinwag.OpenEmbedded("Seussian")
+	latin := chinwag.OpenEmbedded("Latin")
 
 	EXAMPLE OUT
-
+	seuss: {
+		Name: "Seussian",
+		Length: 1096,
+		_: [
+			[I, a], [TV, am, an, as, at, be, ...
+			[Mordecai Ali Van Allen O'Shea]
+		]
+	}
+	
+	latin: {
+		Name: "Latin",
+		Length: 35664,
+		_: [
+			[a, b, c, d, e, f, k, l, m, n, o, ...
+			semicircumferentia, supersubstantialis, supertriparticular]
+		]
+	}
+	
 ### Opening a Custom Dictionary
 
 Opening a custom dictionary is very similar to opening an embedded dictionary. Typically the only drawback, however, is that it is a little slower, given that there is often some I/O overhead. Custom dictionaries do need to be [checked for errors](Errors), as well, prior to [generation](Generation).
 
 If you need a valid, custom dictionary to test against, we recommend our [Noise dictionary](DownloadNoiseDictionary). It has several thousand entries, and will have no problem passing any and all internal validation procedures. Otherwise, if you would like to create our own, we'd be happy to [show you how](CreatingDictionaries).
 
+	EXAMPLE IN
+	import (
+		"log"
+		"path"
+		"io/ioutil"
+		"github.com/vulcanca/chinwag-go"
+	)
+	filename := path.Join("dictionaries", "noise.dict")
+	tokens, err := ioutil.ReadFile(filename)
+	if err != nil { log.Fatal(err) }
+	noise := chinwag.OpenWithNameAndTokens("Noise", tokens)
+
+	EXAMPLE OUT
+	noise: {
+		Name: "Noise",
+		Length: 18957,
+		_: [
+			[g, s, u, z, l, h, i, a, m, v, o, q, ...
+			pzhvbzvnsdozcuxpgldrwylvedosnbbktoyi]
+		]
+	}
 
 ### Opening a Blank Dictionary
 
@@ -59,17 +100,24 @@ While having a blank dictionary is not particularly useful, you can append to it
 	blank := chinwag.Open()
 
 	EXAMPLE OUT
-
+	blank: {
+		Name: "",
+		Length: 0, 
+		_: []
+	}
+	
 ### Examining Dictionaries
 
 If there is ever a reason you need to visually debug a dictionary, each of our libraries supports a visualization component. This forces the dictionary instance to spill its guts, via your command-line, debug interface.
 
 	EXAMPLE IN
 	import "github.com/vulcanca/chinwag-go"
-	seuss := chinwag.Open("Seussian")
+	seuss := chinwag.OpenEmbedded("Seussian")
 	chinwag.Print(seuss)
 
 	EXAMPLE OUT
+	[[I, a], [TV, am, an, as, at, be, ...
+	[Dibble Dibble Dibble Dribble], [Mordecai Ali Van Allen O'Shea]]
 
 ### Dictionary Arithmetic
 
@@ -77,13 +125,32 @@ Whether using an embedded dictionary, or something custom, you can concatenate n
 
 	EXAMPLE IN
 	import "github.com/vulcanca/chinwag-go"
-	blank := chinwag.Open()
+	ungrouped := chinwag.Open()
+	grouped := chinwag.Open()
+	ungrouped.AddWords("these", "are", "some", "test", "words")
+	grouped.PlaceWords("these", "words", "will", "be", "sorted")
 
 	EXAMPLE OUT
+	ungrouped: {
+		Name: "",
+		Length: 5,
+		_: [
+			[these, are, some, test, words]
+		]
+	}
+	
+	grouped: {
+		Name: "",
+		Length: 5,
+		_: [
+			[these, words], [will], [be], [sorted]
+		]
+	}
 
 ### Sorting and Pruning
 
 While generation requires a dictionary to be sorted by length, it is also best-practice to prune your dictionary of repeat elements. This is done directly by our tools [prepare_dict](Universal) and [compile_dict](ChinwagOnly), during custom .dict creation. However, blank dictionaries, which are gradually built upon, require inline cleanup prior to use.
+
 
 
 ### Duplication
@@ -96,13 +163,47 @@ Nevertheless, we allow deep copies, via our range of library implementations. Th
 	import "github.com/vulcanca/chinwag-go"
 	seuss := chinwag.Open("Seussian")
 	copy := chinwag.Clone(seuss)
+	seuss.Close()
 
 	EXAMPLE OUT
+	seuss: {
+		Name: "",
+		Length: 0,
+		_ : []
+	}
+	
+	copy: {
+		Name: "Seussian",
+		Length: 1096,
+		_: [
+			[I, a], [TV, am, an, as, at, be, ...
+			[Mordecai Ali Van Allen O'Shea]
+		]
+	}
 
 ### In-Place Modification
 
 Occasionally, one needs to make modifications directly to a dictionary instance. We allow this via Enumerators (where applicable), or library routines, modifiying the instance's internal entries directly. This is particularly useful for, say, converting all entries to uppercase.
 
+	EXAMPLE IN
+	import (
+		"strings"
+		"github.com/vulcanca/chinwag-go"
+	)
+	caps := chinwag.OpenWithName("Caps")
+	caps.PlaceSlice([]string{"these", "words", "will", "be", "capitalized"})
+	caps.Tweak(strings.ToUpper)
+	// chinwag.Tweak requires a method
+	// signature of (string)string
+	
+	EXAMPLE OUT
+	caps: {
+		Name: "Caps",
+		Length: 5,
+		_: [
+			[THESE, WORDS], [WILL], [BE], [CAPITALIZED]
+		]
+	}
 
 ### Closing a Dictionary
 
@@ -110,12 +211,32 @@ When using a newer, more dynamic language, such as Ruby, Python, Swift, or Go, m
 
 	EXAMPLE IN
 	import "github.com/vulcanca/chinwag-go"
-	blank := chinwag.Close(seuss)
+	seuss := Chinwag.OpenEmbedded("Seussian")
+	latin := Chinwag.OpenEmbedded("Latin")
+	latin.Close()
+	blank := seuss.Close()
 	// Clears all of seuss' internal, dynamic memory,
 	// and resets it to a blank dictionary, which
 	// you are free to capture
 
 	EXAMPLE OUT
+	seuss: {
+		Name: "",
+		Length: 0,
+		_: []
+	}
+	
+	latin: {
+		Name: "",
+		Length: 0,
+		_: []
+	}
+	
+	blank: {
+		Name: "",
+		Length: 0,
+		_: []
+	}
 
 ## Validation and Errors
 
@@ -125,32 +246,39 @@ Embedded dictionaries have already been thoroughly tested, and need no further v
 
 	EXAMPLE IN
 	import "github.com/vulcanca/chinwag-go"
-	blank := chinwag.Open("Seussian")
-	error := chinwag.Validate(blank)
-
-	if error != nil {
-		cwdictError := error.(Error)
-
-		switch cwdictError.Type {
-			case cwdictError.TooSmall:
-			case cwdictError.Unsortable:
+	blank := chinwag.Open()
+	err := blank.Validate()
+	if err != nil {
+		switch err {
+		case chinwag.DictTooSmall:
+			chinwag.Warn(blank.err)
+		case chinwag.DictUnsortable:
+			chinwag.Warn(blank, err)
+		case chinwag.DictUnknown:
+			chinwag.Fatal(blank, err)
 		}
 	}
 
 	EXAMPLE OUT
-	CWDictError: too few acceptable entries (0 of 300)
+	CWError.DictTooSmall: dict has too few acceptable entries (0 of 300)
 
 ## Generation
 
 With a reference to a valid dictionary, generating output is an incredibly easy task. One needs to simply specify the `output type` and `output amount(s)`, passing the dictionary reference as an argument, and the library will handle the rest. Output is always returned in terms of your library's character-array-equivalent implementation, typically a String class.
 
 	EXAMPLE IN
-	import "github.com/vulcanca/chinwag-go"
-	seuss := chinwag.Open("Seussian")
-	output := chinwag.Generate(chinwag.Words, 10, 20, seuss)
-	// Generates ten to twenty words in Seussian
+	import (
+		"fmt"
+		"github.com/vulcanca/chinwag-go"
+	)
+	seuss := chinwag.OpenEmbedded("Seussian")
+	output, err := chinwag.Generate(seuss, chinwag.Words, 10, 20)
+	if err == nil { fmt.Println(output) }
+	// Prints ten to twenty words in Seussian
 
 	EXAMPLE OUT
+	A With Monkeys Everywhere I Comes Stew Mostly Lasso Shout 
+	Confused Congratulations When Blackbottomed
 
 ## Legal
 

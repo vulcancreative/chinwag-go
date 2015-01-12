@@ -175,6 +175,18 @@ func (dict *CWDict) AppendWords(words ...string) *CWDict {
   return dict
 }
 
+func (dict *CWDict) AppendSlice(words []string) *CWDict {
+  for _, word := range words {
+    cword := C.CString(word)
+    defer C.free(unsafe.Pointer(cword))
+    *dict =
+    CWDict(C.cwdict_place_word(C.struct_dictionary_container_type(*dict),
+    cword))
+  }
+
+  return dict
+}
+
 func (dict *CWDict) PlaceWord(word string) *CWDict {
   cword := C.CString(word)
   defer C.free(unsafe.Pointer(cword))
