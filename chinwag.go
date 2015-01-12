@@ -11,6 +11,7 @@ import (
 )
 
 /*
+#cgo CFLAGS: -std=c99
 #include "chinwag.h"
 */
 import "C"
