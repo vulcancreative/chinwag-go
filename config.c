@@ -3,8 +3,8 @@
 const char* const CW_VERSION = "1.2.3";
 const char* const CW_DATE_YEAR = "2015";
 const char* const CW_DATE_MONTH = "01";
-const char* const CW_DATE_DAY = "11";
-const char* const CW_REVISION = "1";
+const char* const CW_DATE_DAY = "12";
+const char* const CW_REVISION = "59";
 
 const unsigned CW_SMALL_BUFFER = 1024;
 const unsigned CW_LARGE_BUFFER = 5120;
