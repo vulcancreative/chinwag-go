@@ -282,11 +282,4 @@ With a reference to a valid dictionary, generating output is an incredibly easy 
 
 ## Legal
 
-Chinwag falls under the [MIT License](http://opensource.org/licenses/MIT). Copyright © 2015 Vulcan Creative, LLC.
-Babble is privately licensed. Copyright © 2015 Vulcan Creative, LLC.
-
-Unlike Babble, Chinwag, and all its sister language implementations, are completely open-source and expandable. [Contribution](https://github.com/vulcancreative) is encouraged. We aim to regularly fold in end-user contributions, and, occasionally, they creep into Babble, as well.
-
-Babble was conceptualized in part by Interface Designer [Ben Bate](http://benbate.com), without whom none of this would be possible. Thank you, Ben!
-
-Gorgeous screenshot backing-image provided by [Stacey Guptill](http://www.inspiredfromtime.com). Thanks, Stacey!
+Chinwag is available under the [MIT License](http://opensource.org/licenses/MIT). Use, abuse, and please don't bite the hand that feeds you.
