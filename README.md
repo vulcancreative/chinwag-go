@@ -1,8 +1,19 @@
+[![Build Status](https://travis-ci.org/vulcancreative/chinwag-go.svg?branch=master)](https://travis-ci.org/vulcancreative/chinwag-go)
+
 ## Introduction
 
-Chinwag, the back-end, developer toolset behind Babble, has a very accessible API. While it is implemented purely in [C99](http://en.wikipedia.org/wiki/C99), its API was crafted with a very dynamic mindset, reminiscent of its sister, scripting-language implementations (also catalogued here). We have made a diligent effort to ensure Chinwag, and, subsequently, Babble, have no external dependencies to keep track of. As a direct result, the entire Chinwag family is intended to compile with ease -- whether one is using C, Ruby, Python, Swift, or Go.
+Chinwag is a developer toolset used for text-synthesis. The goal is to allow for developers and designers (with a little programming experience) to be able to rapidly prototype text-heavy interfaces, in a fun manner.
 
-Do note -- our style of API documentation may be a bit unfamiliar to some, in that we document the implementation, along with the bare minimum needed for execution (importation statements, et cetera). We find this technique fares best with seasoned programmers, who understand the mechanics of their language of choice. It is recommend for those with less experience to study up on their language of choice, and view the following as a cursory overview.
+Chinwag, other than being a funny word, is an open-source, text-synthesis library. It is primarily written in C99 (for the sake of speed and portability), but has many offical language bindings, covering C, Ruby, Python, Swift, and Go.
+
+The library universally features:
+
+* Powerful dictionary type with accompanying routines
+* Several embedded dictionaries
+* Easy custom dictionary creation and use
+* Easy output configuration
+* C99-based for speed and portability
+* Zero dependencies
 
 ## Installation
 
@@ -23,7 +34,7 @@ When we make releases to the API, we strive for consistency across all of the va
 	import (
 		"fmt"
 		"github.com/vulcanca/chinwag-go"
-	)	
+	)
 	fwt.Println(chinwag.Version)
 
 	EXAMPLE OUT
@@ -53,7 +64,7 @@ Where applicable, a standardized delimiter character-array/String (such as `CW_D
 			[Mordecai Ali Van Allen O'Shea]
 		]
 	}
-	
+
 	latin: {
 		Name: "Latin",
 		Length: 35664,
@@ -62,7 +73,7 @@ Where applicable, a standardized delimiter character-array/String (such as `CW_D
 			semicircumferentia, supersubstantialis, supertriparticular]
 		]
 	}
-	
+
 ### Opening a Custom Dictionary
 
 Opening a custom dictionary is very similar to opening an embedded dictionary. Typically the only drawback, however, is that it is a little slower, given that there is often some I/O overhead. Custom dictionaries do need to be [checked for errors](Errors), as well, prior to [generation](Generation).
@@ -102,10 +113,10 @@ While having a blank dictionary is not particularly useful, you can append to it
 	EXAMPLE OUT
 	blank: {
 		Name: "",
-		Length: 0, 
+		Length: 0,
 		_: []
 	}
-	
+
 ### Examining Dictionaries
 
 If there is ever a reason you need to visually debug a dictionary, each of our libraries supports a visualization component. This forces the dictionary instance to spill its guts, via your command-line, debug interface.
@@ -138,7 +149,7 @@ Whether using an embedded dictionary, or something custom, you can concatenate n
 			[these, are, some, test, words]
 		]
 	}
-	
+
 	grouped: {
 		Name: "",
 		Length: 5,
@@ -171,7 +182,7 @@ Nevertheless, we allow deep copies, via our range of library implementations. Th
 		Length: 0,
 		_ : []
 	}
-	
+
 	copy: {
 		Name: "Seussian",
 		Length: 1096,
@@ -195,7 +206,7 @@ Occasionally, one needs to make modifications directly to a dictionary instance.
 	caps.Tweak(strings.ToUpper)
 	// chinwag.Tweak requires a method
 	// signature of (string)string
-	
+
 	EXAMPLE OUT
 	caps: {
 		Name: "Caps",
@@ -225,13 +236,13 @@ When using a newer, more dynamic language, such as Ruby, Python, Swift, or Go, m
 		Length: 0,
 		_: []
 	}
-	
+
 	latin: {
 		Name: "",
 		Length: 0,
 		_: []
 	}
-	
+
 	blank: {
 		Name: "",
 		Length: 0,
@@ -277,7 +288,7 @@ With a reference to a valid dictionary, generating output is an incredibly easy 
 	// Prints ten to twenty words in Seussian
 
 	EXAMPLE OUT
-	A With Monkeys Everywhere I Comes Stew Mostly Lasso Shout 
+	A With Monkeys Everywhere I Comes Stew Mostly Lasso Shout
 	Confused Congratulations When Blackbottomed
 
 ## Legal
