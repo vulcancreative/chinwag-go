@@ -66,6 +66,20 @@ func TestChinwagGenerateParagraphs(t *testing.T) {
   }
 }
 
+func TestChinwagGen(t *testing.T) {
+  var amount uint64 = 30
+  defaultType = Letters
+	defaultMinOutput = amount
+	defaultMaxOutput = amount
+	result, _ := Gen()
+
+  actual := uint64(utf8.RuneCountInString(result))
+
+  if amount != actual {
+    t.Errorf("expected %d Letters, got %d", amount, actual)
+  }
+}
+
 func TestChinwagOpenEmbedded(t *testing.T) {
   seuss := OpenEmbedded("Seussian")
   latin := OpenEmbedded("Latin")

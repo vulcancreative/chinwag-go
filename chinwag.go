@@ -39,7 +39,14 @@ const (
   DictUnknown ErrorType = "CWError.DictUnknown"
 )
 
-var Delimiters = C.GoString(C.CW_DELIMITERS)
+var (
+  Delimiters = C.GoString(C.CW_DELIMITERS)
+
+  defaultDict = OpenEmbedded("seuss")
+  defaultType = Words
+  defaultMinOutput uint64 = 1
+  defaultMaxOutput uint64 = 5
+)
 
 func Generate(dict CWDict, kind CWType, min, max uint64) (string, *ErrorType) {
   cwerror := dict.Validate()
@@ -67,6 +74,10 @@ func Generate(dict CWDict, kind CWType, min, max uint64) (string, *ErrorType) {
   }
 
   return C.GoString(result), nil
+}
+
+func Gen() (string, *ErrorType) {
+  return Generate(defaultDict, defaultType, defaultMinOutput, defaultMaxOutput)
 }
 
 func Open() CWDict {

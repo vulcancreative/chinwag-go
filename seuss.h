@@ -1,5 +1,5 @@
-#ifndef __SEUSS_KQKJDIR3_H
-#define __SEUSS_KQKJDIR3_H
+#ifndef __SEUSS_VQ2GXM2K_H
+#define __SEUSS_VQ2GXM2K_H
 
 #include "chinwag.h"
 
