@@ -168,11 +168,14 @@ While generation requires a dictionary to be sorted by length, it is also best-p
 	pruned.AppendWords("something", "something", "another", "done")
 	cleand.AppendWords("first", "second", "first", "second", "third")
 	sorted.Sort()
-	// orders by entry length
+	// orders by entry length,
+	// meeting generation requirements
 	pruned.Prune()
 	// removes duplicates, retains placement
+	// needs to be sorted before generating
 	cleaned.Clean()
-	// removes duplicates and sorts
+	// removes duplicates and sorts,
+	// meeting generation requirements
 
 	EXAMPLE OUT
 	sorted: {
