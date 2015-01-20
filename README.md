@@ -159,7 +159,48 @@ Whether using an embedded dictionary, or something custom, you can concatenate n
 
 While generation requires a dictionary to be sorted by length, it is also best-practice to prune your dictionary of repeat elements. This is done directly by our tools [prepare_dict](Universal) and [compile_dict](ChinwagOnly), during custom .dict creation. However, blank dictionaries, which are gradually built upon, require inline cleanup prior to use.
 
+	EXAMPLE IN
+	import "github.com/vulcanca/chinwag-go"
+	sorted := chinwag.OpenWithName("Sorted")
+	pruned := chinwag.OpenWithName("Pruned")
+	cleaned := chinwag.OpenWithName("Cleaned")
+	sorted.AppendWords("this", "is", "a", "quick", "test")
+	pruned.AppendWords("something", "something", "another", "done")
+	cleand.AppendWords("first", "second", "first", "second", "third")
+	sorted.Sort()
+	// orders by entry length
+	pruned.Prune()
+	// removes duplicates, retains placement
+	cleaned.Clean()
+	// removes duplicates and sorts
 
+	EXAMPLE OUT
+	sorted: {
+		Name(): "Sorted",
+		Length(): 5,
+		IsSorted(): true,
+		_ : [
+			[a], [is], [test, this], [quick]
+		]
+	}
+	
+	pruned: {
+		Name(): "Pruned",
+		Length(): 3,
+		IsSorted(): false,
+		_ : [
+			[something], [another], [done]
+		]
+	}
+
+	cleaned: {
+		Name(): "Cleaned",
+		Length(): 3,
+		IsSorted(): true,
+		_: [
+			[first, third], [second]
+		]
+	}
 
 ### Duplication
 
