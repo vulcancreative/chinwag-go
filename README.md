@@ -19,9 +19,6 @@ The library universally features:
 
 Installation of the API is a relatively simple procedure. Where possible, we try our best to make the appropriate library available via your language-specific package manager. This technique often fully automates the installation process, either globally or for your project (depending on your settings). Thus, if you're a more advanced user looking to install manually, cloning your language-specific Github repo would be the best approach, for integration.
 
-Alternatively, if you own a Babble license, purchased from the Mac App Store, you can simply follow the instructions noted in the `Preference Panel`. The steps will guide you in downloading the Developer Integration package, opening, and installing. Upon installation you will have Chinwag, and all of its sister libraries installed, along with a few local utilities.
-
-All installation is done via your machine's command-line.
 
 	EXAMPLE IN
 	go get github.com/vulcanca/chinwag-go
@@ -57,8 +54,8 @@ Where applicable, a standardized delimiter character-array/String (such as `CW_D
 
 	EXAMPLE OUT
 	seuss: {
-		Name: "Seussian",
-		Length: 1096,
+		Name(): "Seussian",
+		Length(): 1096,
 		_: [
 			[I, a], [TV, am, an, as, at, be, ...
 			[Mordecai Ali Van Allen O'Shea]
@@ -66,8 +63,8 @@ Where applicable, a standardized delimiter character-array/String (such as `CW_D
 	}
 
 	latin: {
-		Name: "Latin",
-		Length: 35664,
+		Name(): "Latin",
+		Length(): 35664,
 		_: [
 			[a, b, c, d, e, f, k, l, m, n, o, ...
 			semicircumferentia, supersubstantialis, supertriparticular]
@@ -94,8 +91,8 @@ If you need a valid, custom dictionary to test against, we recommend our [Noise 
 
 	EXAMPLE OUT
 	noise: {
-		Name: "Noise",
-		Length: 18957,
+		Name(): "Noise",
+		Length(): 18957,
 		_: [
 			[g, s, u, z, l, h, i, a, m, v, o, q, ...
 			pzhvbzvnsdozcuxpgldrwylvedosnbbktoyi]
@@ -112,8 +109,8 @@ While having a blank dictionary is not particularly useful, you can append to it
 
 	EXAMPLE OUT
 	blank: {
-		Name: "",
-		Length: 0,
+		Name(): "",
+		Length(): 0,
 		_: []
 	}
 
@@ -143,16 +140,16 @@ Whether using an embedded dictionary, or something custom, you can concatenate n
 
 	EXAMPLE OUT
 	ungrouped: {
-		Name: "",
-		Length: 5,
+		Name(): "",
+		Length(): 5,
 		_: [
 			[these, are, some, test, words]
 		]
 	}
 
 	grouped: {
-		Name: "",
-		Length: 5,
+		Name(): "",
+		Length(): 5,
 		_: [
 			[these, words], [will], [be], [sorted]
 		]
@@ -178,14 +175,14 @@ Nevertheless, we allow deep copies, via our range of library implementations. Th
 
 	EXAMPLE OUT
 	seuss: {
-		Name: "",
-		Length: 0,
+		Name(): "",
+		Length(): 0,
 		_ : []
 	}
 
 	copy: {
-		Name: "Seussian",
-		Length: 1096,
+		Name(): "Seussian",
+		Length(): 1096,
 		_: [
 			[I, a], [TV, am, an, as, at, be, ...
 			[Mordecai Ali Van Allen O'Shea]
@@ -209,8 +206,8 @@ Occasionally, one needs to make modifications directly to a dictionary instance.
 
 	EXAMPLE OUT
 	caps: {
-		Name: "Caps",
-		Length: 5,
+		Name(): "Caps",
+		Length(): 5,
 		_: [
 			[THESE, WORDS], [WILL], [BE], [CAPITALIZED]
 		]
@@ -232,20 +229,20 @@ When using a newer, more dynamic language, such as Ruby, Python, Swift, or Go, m
 
 	EXAMPLE OUT
 	seuss: {
-		Name: "",
-		Length: 0,
+		Name(): "",
+		Length(): 0,
 		_: []
 	}
 
 	latin: {
-		Name: "",
-		Length: 0,
+		Name(): "",
+		Length(): 0,
 		_: []
 	}
 
 	blank: {
-		Name: "",
-		Length: 0,
+		Name(): "",
+		Length(): 0,
 		_: []
 	}
 
