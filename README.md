@@ -127,20 +127,219 @@ If there is ever a reason you need to visually debug a dictionary, each of our l
 
 ### Dictionary Arithmetic
 
-While generation requires a dictionary to be sorted by length, it is also best-practice to prune your dictionary of repeat elements. This is done directly by our tools [prepare_dict](Universal) and [compile_dict](ChinwagOnly), during custom .dict creation. However, blank dictionaries, which are gradually built upon, require inline cleanup prior to use.
-Occasionally, one needs to make modifications directly to a dictionary instance. We allow for this via Enumerators (where applicable), or library routines, modifiying the instance's internal entries directly. This is particularly useful for, say, converting all entries to uppercase.
-When using a newer, more dynamic language, such as Ruby, Python, Swift, or Go, memory management isn't too much of an issue, and all dictionary objects are automatically released for you (via reference counting or garbage collection). However, in C, or when you simply need some free memory, it is beneficial to be able to close the dictionary at hand, when no longer in use.
-Upon loading a foreign dictionary, it is crucial to test its validity, prior to use. This checks that the library will be capable of understanding the dictionary format properly, and, if so, ensures adequate randomization for our synthesis algorithms. Depending on the security risks potentially present in your library of choice (the lower the level, the higher the risk), it may be a wise decision to terminate on certain circumstances.
+Whether using an embedded dictionary, or something custom, you can concatenate new entries in the form of strings. This is particularly useful if you have a blank dictionary, and gradually want to build upon it by adding in information dynamically.
+
+	EXAMPLE IN
+	import "github.com/vulcanca/chinwag-go"
+	ungrouped := chinwag.Open()
+	grouped := chinwag.Open()
+	ungrouped.AddWords("these", "are", "some", "test", "words")
+	grouped.PlaceWords("these", "words", "will", "be", "sorted")
+
+	EXAMPLE OUT
+	ungrouped: {
+		Name(): "",
+		Length(): 5,
+		_: [
+			[these, are, some, test, words]
+		]
+	}
+
+	grouped: {
+		Name(): "",
+		Length(): 5,
+		_: [
+			[these, words], [will], [be], [sorted]
+		]
+	}
+
+### Sorting and Pruning
+
+While generation requires a dictionary to be sorted by length, it is also best-practice to prune your dictionary of repeat elements. Cleaning both sorts and prunes.
+
+	EXAMPLE IN
+	import "github.com/vulcanca/chinwag-go"
+	sorted := chinwag.OpenWithName("Sorted")
+	pruned := chinwag.OpenWithName("Pruned")
+	cleaned := chinwag.OpenWithName("Cleaned")
+	sorted.AppendWords("this", "is", "a", "quick", "test")
+	pruned.AppendWords("something", "something", "another", "done")
+	cleand.AppendWords("first", "second", "first", "second", "third")
+	sorted.Sort()
+	// orders by entry length,
+	// meeting generation requirements
+	pruned.Prune()
+	// removes duplicates, retains placement
+	// needs to be sorted before generating
+	cleaned.Clean()
+	// removes duplicates and sorts,
+	// meeting generation requirements
+
+	EXAMPLE OUT
+	sorted: {
+		Name(): "Sorted",
+		Length(): 5,
+		IsSorted(): true,
+		_ : [
+			[a], [is], [test, this], [quick]
+		]
+	}
+	
+	pruned: {
+		Name(): "Pruned",
+		Length(): 3,
+		IsSorted(): false,
+		_ : [
+			[something], [another], [done]
+		]
+	}
+
+	cleaned: {
+		Name(): "Cleaned",
+		Length(): 3,
+		IsSorted(): true,
+		_: [
+			[first, third], [second]
+		]
+	}
+
+### Duplication
+
+As dictionaries are rooted as complex structs in C99, and require a variety of resources to initalize and close, duplication is a slightly complex procedure.
+
+Nevertheless, we allow deep copies, via the library. Duplication will respect any sorting or pruning that has been done previously to the dictionary being copied, and will have a new address in memory.
+
+	EXAMPLE IN
+	import "github.com/vulcanca/chinwag-go"
+	seuss := chinwag.Open("Seussian")
+	copy := chinwag.Clone(seuss)
+	seuss.Close()
+
+	EXAMPLE OUT
+	seuss: {
+		Name(): "",
+		Length(): 0,
+		_ : []
+	}
+
+	copy: {
+		Name(): "Seussian",
+		Length(): 1096,
+		_: [
+			[I, a], [TV, am, an, as, at, be, ...
+			[Mordecai Ali Van Allen O'Shea]
+		]
+	}
+
+### In-Place Modification
+
+Occasionally, one needs to make modifications directly to a dictionary instance. We allow for modifiying the instance's internal entries directly via the Tweak method, which takes a handler. This is particularly useful for, say, converting all entries to uppercase.
+
+	EXAMPLE IN
+	import (
+		"strings"
+		"github.com/vulcanca/chinwag-go"
+	)
+	caps := chinwag.OpenWithName("Caps")
+	caps.PlaceSlice([]string{"these", "words", "will", "be", "capitalized"})
+	caps.Tweak(strings.ToUpper)
+	// chinwag.Tweak requires a method
+	// signature of (string)string
+
+	EXAMPLE OUT
+	caps: {
+		Name(): "Caps",
+		Length(): 5,
+		_: [
+			[THESE, WORDS], [WILL], [BE], [CAPITALIZED]
+		]
+	}
+
+### Closing a Dictionary
+
+By default, when closing a dictionary, a blank dictionary is returned. This value can be ignored, if desired.
+
+	EXAMPLE IN
+	import "github.com/vulcanca/chinwag-go"
+	seuss := Chinwag.OpenEmbedded("Seussian")
+	latin := Chinwag.OpenEmbedded("Latin")
+	latin.Close()
+	blank := seuss.Close()
+	// Clears all of seuss' internal, dynamic memory,
+	// and resets it to a blank dictionary, which
+	// you are free to capture
+
+	EXAMPLE OUT
+	seuss: {
+		Name(): "",
+		Length(): 0,
+		_: []
+	}
+
+	latin: {
+		Name(): "",
+		Length(): 0,
+		_: []
+	}
+
+	blank: {
+		Name(): "",
+		Length(): 0,
+		_: []
+	}
+
+## Validation and Errors
+
+Upon loading a foreign dictionary, it is crucial to test its validity, prior to use. This checks that the library will be capable of understanding the dictionary format properly, and, if so, ensures adequate randomization for our synthesis algorithms.
 
 Embedded dictionaries have already been thoroughly tested, and need no further validation. This, in turn, grants the embedded resources an additional speed boost.
-With a valid dictionary in-hand, generating output is an incredibly easy task. One needs to simply specify the `output type` and `output amount(s)`, passing the dictionary reference as an argument, and the library will handle the rest. Output is always returned in terms of your library's character-array-equivalent implementation, typically a String class.
+
+	EXAMPLE IN
+	import "github.com/vulcanca/chinwag-go"
+	blank := chinwag.Open()
+	err := blank.Validate()
+	if err != nil {
+		switch err {
+		case chinwag.DictTooSmall:
+			chinwag.Warn(blank.err)
+		case chinwag.DictUnsortable:
+			chinwag.Warn(blank, err)
+		case chinwag.DictUnknown:
+			chinwag.Fatal(blank, err)
+		}
+	}
+
+	EXAMPLE OUT
+	CWError.DictTooSmall: dict has too few acceptable entries (0 of 300)
+
+## Generation
+
+With a valid dictionary in-hand, generating output is an incredibly easy task. One needs to simply specify the `output type` and `output amount(s)`, passing the dictionary reference as an argument, and the library will handle the rest.
 
 It is possible to allow for generation using only the defaults, and, subsequently, modifying the defaults, to allow for succinct operation.
-Chinwag falls under the [MIT License](http://opensource.org/licenses/MIT). Copyright © 2015 Vulcan Creative, LLC.
-Babble is privately licensed. Copyright © 2015 Vulcan Creative, LLC.
 
-Unlike Babble, Chinwag, and all its sister language implementations, are completely open-source and expandable. [Contribution](https://github.com/vulcancreative) is encouraged. We aim to regularly fold in end-user contributions, and, occasionally, they creep into Babble, as well.
+	EXAMPLE IN
+	import (
+		"fmt"
+		"github.com/vulcanca/chinwag-go"
+	)
+	seuss := chinwag.OpenEmbedded("Seussian")
+	output, err := chinwag.Generate(seuss, chinwag.Words, 10, 20)
+	if err == nil { fmt.Println(output) }
+	// Prints ten to twenty words in Seussian
+	chinwag.defaultType = chinwag.Letters
+	chinwag.defaultMinOutput = 30
+	chinwag.defaultMaxOutput = 30
+	output, err = chinwag.Gen()
+	if err == nil { fmt.Println(output) }
+	// Prints thirty letters using defaults
 
-Babble was conceptualized in part by Interface Designer [Ben Bate](http://benbate.com), without whom none of this would be possible. Thank you, Ben!
+	EXAMPLE OUT
+	A With Monkeys Everywhere I Comes Stew Mostly Lasso Shout
+	Confused Congratulations When Blackbottomed
+	
+	Wonderfully Her Amounts Feetae
 
-Gorgeous screenshot backing-image provided by [Stacey Guptill](http://www.inspiredfromtime.com). Thanks, Stacey!
+## Legal
+
+Chinwag is available under the [MIT License](http://opensource.org/licenses/MIT). Use, abuse, and please don't bite the hand that feeds you.
