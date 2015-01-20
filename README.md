@@ -332,7 +332,7 @@ With a reference to a valid dictionary, generating output is an incredibly easy 
 	chinwag.defaultMaxOutput = 30
 	output, err = chinwag.Gen()
 	if err == nil { fmt.Println(output) }
-	// Prints 30 letters using defaults
+	// Prints thirty letters using defaults
 
 	EXAMPLE OUT
 	A With Monkeys Everywhere I Comes Stew Mostly Lasso Shout
