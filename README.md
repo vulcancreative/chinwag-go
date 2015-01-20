@@ -133,6 +133,9 @@ When using a newer, more dynamic language, such as Ruby, Python, Swift, or Go, m
 Upon loading a foreign dictionary, it is crucial to test its validity, prior to use. This checks that the library will be capable of understanding the dictionary format properly, and, if so, ensures adequate randomization for our synthesis algorithms. Depending on the security risks potentially present in your library of choice (the lower the level, the higher the risk), it may be a wise decision to terminate on certain circumstances.
 
 Embedded dictionaries have already been thoroughly tested, and need no further validation. This, in turn, grants the embedded resources an additional speed boost.
+With a valid dictionary in-hand, generating output is an incredibly easy task. One needs to simply specify the `output type` and `output amount(s)`, passing the dictionary reference as an argument, and the library will handle the rest. Output is always returned in terms of your library's character-array-equivalent implementation, typically a String class.
+
+It is possible to allow for generation using only the defaults, and, subsequently, modifying the defaults, to allow for succinct operation.
 Chinwag falls under the [MIT License](http://opensource.org/licenses/MIT). Copyright © 2015 Vulcan Creative, LLC.
 Babble is privately licensed. Copyright © 2015 Vulcan Creative, LLC.
 
