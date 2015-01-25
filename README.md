@@ -18,7 +18,6 @@ The library universally features:
 ## Installation
 
 
-	EXAMPLE IN
 	go get github.com/vulcanca/chinwag-go
 
 ## Versioning
@@ -73,7 +72,7 @@ These are installed programmatically, and have their own specific method for acc
 
 Opening a custom dictionary is very similar to opening an embedded dictionary. Typically the only drawback, however, is that it is a little slower, given that there is often some I/O overhead. Custom dictionaries do need to be [checked for errors](Errors) and [sorted](SortingAndPruning), as well, prior to [generation](Generation).
 
-If you need a valid, custom dictionary to test against, we recommend our [Noise dictionary](DownloadNoiseDictionary). It has several thousand entries, and will have no problem passing any and all internal validation procedures.
+If you need a valid, custom dictionary to test against, we recommend our [Noise dictionary](http://vulcanca.com/babble/docs/noise.dict). It has several thousand entries, and will have no problem passing any and all internal validation procedures.
 
 	EXAMPLE IN
 	import (

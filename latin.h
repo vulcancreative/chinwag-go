@@ -1,5 +1,5 @@
-#ifndef __LATIN_G58SF8TD_H
-#define __LATIN_G58SF8TD_H
+#ifndef __LATIN_2BRVD3ZN_H
+#define __LATIN_2BRVD3ZN_H
 
 #include "chinwag.h"
 
