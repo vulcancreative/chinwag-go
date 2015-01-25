@@ -40,7 +40,7 @@ To generate output, you need to open a dictionary object. The dictionary can be 
 
 ### Opening an Embedded Dictionary
 
-Typically the easiest way to [generate output](Generation) is to simply use one of the library's embedded dictionaries -- either `Seussian` or `Latin`.
+Typically the easiest way to [generate output](https://github.com/vulcancreative/chinwag-go#generation) is to simply use one of the library's embedded dictionaries -- either `Seussian` or `Latin`.
 
 These are installed programmatically, and have their own specific method for access. This is advantageous when utilizing multiple dicitonaries and caching to a global is not an option, as IO bottlenecking isn't a factor.
 
@@ -70,7 +70,7 @@ These are installed programmatically, and have their own specific method for acc
 
 ### Opening a Custom Dictionary
 
-Opening a custom dictionary is very similar to opening an embedded dictionary. Typically the only drawback, however, is that it is a little slower, given that there is often some I/O overhead. Custom dictionaries do need to be [checked for errors](Errors) and [sorted](SortingAndPruning), as well, prior to [generation](Generation).
+Opening a custom dictionary is very similar to opening an embedded dictionary. Typically the only drawback, however, is that it is a little slower, given that there is often some I/O overhead. Custom dictionaries do need to be [checked for errors](https://github.com/vulcancreative/chinwag-go#validation-and-errors) and [sorted](https://github.com/vulcancreative/chinwag-go#sorting-and-pruning), as well, prior to [generation](https://github.com/vulcancreative/chinwag-go#generation).
 
 If you need a valid, custom dictionary to test against, we recommend our [Noise dictionary](http://vulcanca.com/babble/docs/noise.dict). It has several thousand entries, and will have no problem passing any and all internal validation procedures.
 
