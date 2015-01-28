@@ -60,19 +60,23 @@ latin := chinwag.OpenEmbedded("Latin")
 seuss: {
 	Name(): "Seussian",
 	Length(): 1096,
+	// the following fields are implicit
 	_: [
 		[I, a], [TV, am, an, as, at, be, ...
 		[Mordecai Ali Van Allen O'Shea]
 	]
+	// contains filtered or unexported fields
 }
 
 latin: {
 	Name(): "Latin",
 	Length(): 35664,
+	// the following fields are implicit
 	_: [
 		[a, b, c, d, e, f, k, l, m, n, o, ...
 		semicircumferentia, supersubstantialis, supertriparticular]
 	]
+	// contains filtered or unexported fields
 }
 ```
 
@@ -101,10 +105,12 @@ noise := chinwag.OpenWithNameAndTokens("Noise", tokens)
 noise: {
 	Name(): "Noise",
 	Length(): 18957,
+	// the following fields are implicit
 	_: [
 		[g, s, u, z, l, h, i, a, m, v, o, q, ...
 		pzhvbzvnsdozcuxpgldrwylvedosnbbktoyi]
 	]
+	// contains filtered or unexported fields
 }
 ```
 
@@ -123,7 +129,9 @@ blank := chinwag.Open()
 blank: {
 	Name(): "",
 	Length(): 0,
+	// the following fields are implicit
 	_: []
+	// contains filtered or unexported fields
 }
 ```
 
@@ -162,17 +170,21 @@ grouped.PlaceWords("these", "words", "will", "be", "sorted")
 ungrouped: {
 	Name(): "",
 	Length(): 5,
+	// the following fields are implicit
 	_: [
 		[these, are, some, test, words]
 	]
+	// contains filtered or unexported fields
 }
 
 grouped: {
 	Name(): "",
 	Length(): 5,
+	// the following fields are implicit
 	_: [
 		[these, words], [will], [be], [sorted]
 	]
+	// contains filtered or unexported fields
 }
 ```
 
@@ -206,33 +218,39 @@ sorted: {
 	Name(): "Sorted",
 	Length(): 5,
 	IsSorted(): true,
+	// the following fields are implicit
 	_ : [
 		[a], [is], [test, this], [quick]
 	]
+	// contains filtered or unexported fields
 }
 
 pruned: {
 	Name(): "Pruned",
 	Length(): 3,
 	IsSorted(): false,
+	// the following fields are implicit
 	_ : [
 		[something], [another], [done]
 	]
+	// contains filtered or unexported fields
 }
 
 cleaned: {
 	Name(): "Cleaned",
 	Length(): 3,
 	IsSorted(): true,
+	// the following fields are implicit
 	_: [
 		[first, third], [second]
 	]
+	// contains filtered or unexported fields
 }
 ```
 
 ### Duplication
 
-As dictionaries are rooted as complex structs in C99, and require a variety of resources to initalize and close, duplication is a slightly complex procedure.
+As dictionaries are rooted as complex structs in C99, and require a variety of resources to initialize and close, duplication is a slightly complex procedure.
 
 Nevertheless, we allow deep copies, via the library. Duplication will respect any sorting or pruning that has been done previously to the dictionary being copied, and will have a new address in memory.
 
@@ -249,22 +267,26 @@ seuss.Close()
 seuss: {
 	Name(): "",
 	Length(): 0,
+	// the following fields are implicit
 	_ : []
+	// contains filtered or unexported fields
 }
 
 copy: {
 	Name(): "Seussian",
 	Length(): 1096,
+	// the following fields are implicit
 	_: [
 		[I, a], [TV, am, an, as, at, be, ...
 		[Mordecai Ali Van Allen O'Shea]
 	]
+	// contains filtered or unexported fields
 }
 ```
 
 ### In-Place Modification
 
-Occasionally, one needs to make modifications directly to a dictionary instance. We allow for modifiying the instance's internal entries directly via the Tweak method, which takes a handler. This is particularly useful for, say, converting all entries to uppercase.
+Occasionally, one needs to make modifications directly to a dictionary instance. We allow for modifying the instance's internal entries directly via the Tweak method, which takes a handler. This is particularly useful for, say, converting all entries to uppercase.
 
 ```go
 // EXAMPLE IN
@@ -284,9 +306,11 @@ caps.Tweak(strings.ToUpper)
 caps: {
 	Name(): "Caps",
 	Length(): 5,
+	// the following fields are implicit
 	_: [
 		[THESE, WORDS], [WILL], [BE], [CAPITALIZED]
 	]
+	// contains filtered or unexported fields
 }
 ```
 
@@ -311,19 +335,25 @@ blank := seuss.Close()
 seuss: {
 	Name(): "",
 	Length(): 0,
+	// the following fields are implicit
 	_: []
+	// contains filtered or unexported fields
 }
 
 latin: {
 	Name(): "",
 	Length(): 0,
+	// the following fields are implicit
 	_: []
+	// contains filtered or unexported fields
 }
 
 blank: {
 	Name(): "",
 	Length(): 0,
+	// the following fields are implicit
 	_: []
+	// contains filtered or unexported fields
 }
 ```
 
