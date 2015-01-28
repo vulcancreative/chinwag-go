@@ -105,6 +105,7 @@ noise := chinwag.OpenWithNameAndTokens("Noise", tokens)
 noise: {
 	Name(): "Noise",
 	Length(): 18957,
+	IsSorted(): true,
 	// the following fields are implicit
 	_: [
 		[g, s, u, z, l, h, i, a, m, v, o, q, ...
@@ -129,6 +130,7 @@ blank := chinwag.Open()
 blank: {
 	Name(): "",
 	Length(): 0,
+	IsSorted(): false,
 	// the following fields are implicit
 	_: []
 	// contains filtered or unexported fields
@@ -170,6 +172,7 @@ grouped.PlaceWords("these", "words", "will", "be", "sorted")
 ungrouped: {
 	Name(): "",
 	Length(): 5,
+	IsSorted(): false,
 	// the following fields are implicit
 	_: [
 		[these, are, some, test, words]
@@ -180,6 +183,7 @@ ungrouped: {
 grouped: {
 	Name(): "",
 	Length(): 5,
+	IsSorted(): false,
 	// the following fields are implicit
 	_: [
 		[these, words], [will], [be], [sorted]
@@ -267,6 +271,7 @@ seuss.Close()
 seuss: {
 	Name(): "",
 	Length(): 0,
+	IsSorted(): false,
 	// the following fields are implicit
 	_ : []
 	// contains filtered or unexported fields
@@ -275,6 +280,7 @@ seuss: {
 copy: {
 	Name(): "Seussian",
 	Length(): 1096,
+	IsSorted(): true,
 	// the following fields are implicit
 	_: [
 		[I, a], [TV, am, an, as, at, be, ...
@@ -306,6 +312,7 @@ caps.Tweak(strings.ToUpper)
 caps: {
 	Name(): "Caps",
 	Length(): 5,
+	IsSorted(): false,
 	// the following fields are implicit
 	_: [
 		[THESE, WORDS], [WILL], [BE], [CAPITALIZED]
