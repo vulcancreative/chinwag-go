@@ -409,8 +409,9 @@ output, err := chinwag.Generate(seuss, chinwag.Words, 10, 20)
 if err == nil { fmt.Println(output) }
 // Prints ten to twenty words in Seussian
 chinwag.defaultType = chinwag.Letters
-chinwag.defaultMinOutput = 30
 chinwag.defaultMaxOutput = 30
+// Max must be set first if higher than min
+chinwag.defaultMinOutput = 30
 output, err = chinwag.Gen()
 if err == nil { fmt.Println(output) }
 // Prints thirty letters using defaults
