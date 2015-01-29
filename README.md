@@ -2,6 +2,7 @@
 
 ## Introduction
 
+
 Chinwag, other than being a funny word, is an open-source, developer toolset used for text-synthesis. The goal is to allow for developers and designers (with a little programming experience) to be able to rapidly prototype text-heavy interfaces, but in a fun manner.
 
 It is primarily written in C99 (for the sake of speed and portability), but has many official language bindings, covering C, Ruby, Python, Swift, and Go.
@@ -17,11 +18,15 @@ The library universally features:
 
 ## Installation
 
-	go get github.com/vulcanca/chinwag-go
+
+```shell
+go get github.com/vulcanca/chinwag-go
+```
 
 ## Versioning
 
-When we make releases to the API, we strive for consistency across all of the various, language-flavors. Meaning -- when we release an update to the core Chinwag API (in C99), we update all sister components. This should guarantee a consistent version release number across all equivalent libraries.
+
+When we make releases to the API, we strive for consistency across all of the various, language-flavors. Meaning &ndash; when we release an update to the core Chinwag API (in C99), we update all sister components. This should guarantee a consistent version release number across all equivalent libraries.
 
 
 ```go
@@ -33,18 +38,19 @@ import (
 fwt.Println(chinwag.Version)
 ```
 
-```
+```sample
 // EXAMPLE OUT
 1.2.3
 ```
 
 ## Dictionaries
 
-To generate output, you need to open a dictionary object. The dictionary can be blank, pulled from a custom token file, or loaded from one of Chinwag's embedded options -- `Seussian` or `Latin`.
+
+To generate output, you need to open a dictionary object. The dictionary can be blank, pulled from a custom token file, or loaded from one of Chinwag's embedded options &ndash; `Seussian` or `Latin`.
 
 ### Opening an Embedded Dictionary
 
-Typically the easiest way to [generate output](#generation) is to simply use one of the library's embedded dictionaries -- either `Seussian` or `Latin`.
+Typically the easiest way to [generate output](#generation) is to simply use one of the library's embedded dictionaries &ndash; either `Seussian` or `Latin`.
 
 These are installed programmatically, and have their own specific method for access. This is advantageous when utilizing multiple dicitonaries and caching to a global is not an option, as IO bottlenecking isn't a factor.
 
@@ -55,7 +61,7 @@ seuss := chinwag.OpenEmbedded("Seussian")
 latin := chinwag.OpenEmbedded("Latin")
 ```
 
-```
+```sample
 // EXAMPLE OUT
 seuss: {
 	Name(): "Seussian",
@@ -100,7 +106,7 @@ if err != nil { log.Fatal(err) }
 noise := chinwag.OpenWithNameAndTokens("Noise", tokens)
 ```
 
-```
+```sample
 // EXAMPLE OUT
 noise: {
 	Name(): "Noise",
@@ -125,7 +131,7 @@ import "github.com/vulcanca/chinwag-go"
 blank := chinwag.Open()
 ```
 
-```
+```sample
 // EXAMPLE OUT
 blank: {
 	Name(): "",
@@ -148,7 +154,7 @@ seuss := chinwag.OpenEmbedded("Seussian")
 chinwag.Print(seuss)
 ```
 
-```
+```sample
 // EXAMPLE OUT
 [[I, a], [TV, am, an, as, at, be, ...
 [Dibble Dibble Dibble Dribble], [Mordecai Ali Van Allen O'Shea]]
@@ -167,7 +173,7 @@ ungrouped.AddWords("these", "are", "some", "test", "words")
 grouped.PlaceWords("these", "words", "will", "be", "sorted")
 ```
 
-```
+```sample
 // EXAMPLE OUT
 ungrouped: {
 	Name(): "",
@@ -216,7 +222,7 @@ cleaned.Clean()
 // meeting generation requirements
 ```
 
-```
+```sample
 // EXAMPLE OUT
 sorted: {
 	Name(): "Sorted",
@@ -266,7 +272,7 @@ copy := chinwag.Clone(seuss)
 seuss.Close()
 ```
 
-```
+```sample
 // EXAMPLE OUT
 seuss: {
 	Name(): "",
@@ -307,7 +313,7 @@ caps.Tweak(strings.ToUpper)
 // signature of (string)string
 ```
 
-```
+```sample
 // EXAMPLE OUT
 caps: {
 	Name(): "Caps",
@@ -337,7 +343,7 @@ blank := seuss.Close()
 // you are free to capture
 ```
 
-```
+```sample
 // EXAMPLE OUT
 seuss: {
 	Name(): "",
@@ -366,6 +372,7 @@ blank: {
 
 ## Validation and Errors
 
+
 Upon loading a foreign dictionary, it is crucial to test its validity, prior to use. This checks that the library will be capable of understanding the dictionary format properly, and, if so, ensures adequate randomization for our synthesis algorithms.
 
 Embedded dictionaries have already been thoroughly tested, and need no further validation. This, in turn, grants the embedded resources an additional speed boost.
@@ -387,12 +394,13 @@ if err != nil {
 }
 ```
 
-```
+```sample
 // EXAMPLE OUT
 CWError.DictTooSmall: dict has too few acceptable entries (0 of 300)
 ```
 
 ## Generation
+
 
 With a valid dictionary in-hand, generating output is an incredibly easy task. One needs to simply specify the `output type` and `output amount(s)`, passing the dictionary reference as an argument, and the library will handle the rest.
 
@@ -417,7 +425,7 @@ if err == nil { fmt.Println(output) }
 // Prints thirty letters using defaults
 ```
 
-```
+```sample
 // EXAMPLE OUT
 A With Monkeys Everywhere I Comes Stew Mostly Lasso Shout
 Confused Congratulations When Blackbottomed
@@ -426,6 +434,7 @@ Wonderfully Her Amounts Feetae
 ```
 
 ## Legal
+
 
 Chinwag is available under the [MIT License](http://opensource.org/licenses/MIT).<br>
 Use, abuse, and please don't bite the hand that feeds you.
