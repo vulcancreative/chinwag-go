@@ -90,7 +90,7 @@ latin: {
 
 Opening a custom dictionary is very similar to opening an embedded dictionary. Typically the only drawback, however, is that it is a little slower, given that there is often some I/O overhead. Custom dictionaries do need to be [checked for errors](#validation-and-errors) and [sorted](#sorting-and-pruning), as well, prior to [generation](#generation).
 
-If you need a valid, custom dictionary to test against, we recommend our [Noise dictionary](http://vulcanca.com/babble/docs/noise.dict). It has several thousand entries, and will have no problem passing any and all internal validation procedures.
+If you need a valid, custom dictionary to test against, we recommend our <a href="http://vulcanca.com/babble/docs/noise.dict" target="_blank">Noise dictionary</a>. It has several thousand entries, and will have no problem passing any and all internal validation procedures.
 
 ```go
 // EXAMPLE IN
@@ -436,5 +436,5 @@ Wonderfully Her Amounts Feetae
 ## Legal
 
 
-Chinwag is available under the [MIT License](http://opensource.org/licenses/MIT).<br>
+Chinwag is available under the <a href="http://opensource.org/licenses/MIT" target="_blank">MIT License</a>.<br>
 Use, abuse, and please don't bite the hand that feeds you.
