@@ -20,7 +20,7 @@ The library universally features:
 
 
 ```shell
-go get github.com/vulcanca/chinwag-go
+$ go get github.com/vulcanca/chinwag-go
 ```
 
 ## Versioning
@@ -385,7 +385,7 @@ err := blank.Validate()
 if err != nil {
 	switch err {
 	case chinwag.DictTooSmall:
-		chinwag.Warn(blank.err)
+		chinwag.Warn(blank, err)
 	case chinwag.DictUnsortable:
 		chinwag.Warn(blank, err)
 	case chinwag.DictUnknown:
