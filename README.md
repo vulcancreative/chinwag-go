@@ -48,6 +48,7 @@ fwt.Println(chinwag.Version)
 
 To generate output, you need to open a dictionary object. The dictionary can be blank, pulled from a custom token file, or loaded from one of Chinwag's embedded options &ndash; `Seussian` or `Latin`.
 
+
 ### Opening an Embedded Dictionary
 
 Typically the easiest way to [generate output](#generation) is to simply use one of the library's embedded dictionaries &ndash; either `Seussian` or `Latin`.
@@ -86,6 +87,7 @@ latin: {
 }
 ```
 
+
 ### Opening a Custom Dictionary
 
 Opening a custom dictionary is very similar to opening an embedded dictionary. Typically the only drawback, however, is that it is a little slower, given that there is often some I/O overhead. Custom dictionaries do need to be [checked for errors](#validation-and-errors) and [sorted](#sorting-and-pruning), as well, prior to [generation](#generation).
@@ -121,6 +123,7 @@ noise: {
 }
 ```
 
+
 ### Opening a Blank Dictionary
 
 While having a blank dictionary is not particularly useful, you can append to it after the fact, gradually building a functional dictionary. Blank, unnamed dictionaries have no internal heap allocations, when first initialized.
@@ -143,6 +146,7 @@ blank: {
 }
 ```
 
+
 ### Examining Dictionaries
 
 If there is ever a reason you need to visually debug a dictionary, each of our libraries supports a visualization component. This forces the dictionary instance to spill its guts, via the command-line.
@@ -159,6 +163,7 @@ chinwag.Print(seuss)
 [[I, a], [TV, am, an, as, at, be, ...
 [Dibble Dibble Dibble Dribble], [Mordecai Ali Van Allen O'Shea]]
 ```
+
 
 ### Dictionary Arithmetic
 
@@ -197,6 +202,7 @@ grouped: {
 	// contains filtered or unexported fields
 }
 ```
+
 
 ### Sorting and Pruning
 
@@ -258,6 +264,7 @@ cleaned: {
 }
 ```
 
+
 ### Duplication
 
 As dictionaries are rooted as complex structs in C99, and require a variety of resources to initialize and close, duplication is a slightly complex procedure.
@@ -296,6 +303,7 @@ copy: {
 }
 ```
 
+
 ### In-Place Modification
 
 Occasionally, one needs to make modifications directly to a dictionary instance. We allow for modifying the instance's internal entries directly via the Tweak method, which takes a handler. This is particularly useful for, say, converting all entries to uppercase.
@@ -326,6 +334,7 @@ caps: {
 	// contains filtered or unexported fields
 }
 ```
+
 
 ### Closing a Dictionary
 
