@@ -20,7 +20,7 @@ The library universally features:
 
 
 ```shell
-$ go get github.com/vulcanca/chinwag-go
+$ go get github.com/vulcancreative/chinwag-go
 ```
 
 ## Versioning
@@ -33,7 +33,7 @@ When we make releases to the API, we strive for consistency across all of the va
 // EXAMPLE IN
 import (
 	"fmt"
-	"github.com/vulcanca/chinwag-go"
+	"github.com/vulcancreative/chinwag-go"
 )
 fwt.Println(chinwag.Version)
 ```
@@ -57,7 +57,7 @@ These are installed programmatically, and have their own specific method for acc
 
 ```go
 // EXAMPLE IN
-import "github.com/vulcanca/chinwag-go"
+import "github.com/vulcancreative/chinwag-go"
 seuss := chinwag.OpenEmbedded("Seussian")
 latin := chinwag.OpenEmbedded("Latin")
 ```
@@ -100,7 +100,7 @@ import (
 	"log"
 	"path"
 	"io/ioutil"
-	"github.com/vulcanca/chinwag-go"
+	"github.com/vulcancreative/chinwag-go"
 )
 filename := path.Join("dictionaries", "noise.dict")
 tokens, err := ioutil.ReadFile(filename)
@@ -130,7 +130,7 @@ While having a blank dictionary is not particularly useful, you can append to it
 
 ```go
 // EXAMPLE IN
-import "github.com/vulcanca/chinwag-go"
+import "github.com/vulcancreative/chinwag-go"
 blank := chinwag.Open()
 ```
 
@@ -153,7 +153,7 @@ If there is ever a reason you need to visually debug a dictionary, each of our l
 
 ```go
 // EXAMPLE IN
-import "github.com/vulcanca/chinwag-go"
+import "github.com/vulcancreative/chinwag-go"
 seuss := chinwag.OpenEmbedded("Seussian")
 chinwag.Print(seuss)
 ```
@@ -171,7 +171,7 @@ Whether using an embedded dictionary, or something custom, you can concatenate n
 
 ```go
 // EXAMPLE IN
-import "github.com/vulcanca/chinwag-go"
+import "github.com/vulcancreative/chinwag-go"
 ungrouped := chinwag.Open()
 grouped := chinwag.Open()
 ungrouped.AddWords("these", "are", "some", "test", "words")
@@ -210,7 +210,7 @@ While generation requires a dictionary to be sorted by length, it is also best-p
 
 ```go
 // EXAMPLE IN
-import "github.com/vulcanca/chinwag-go"
+import "github.com/vulcancreative/chinwag-go"
 sorted := chinwag.OpenWithName("Sorted")
 pruned := chinwag.OpenWithName("Pruned")
 cleaned := chinwag.OpenWithName("Cleaned")
@@ -273,7 +273,7 @@ Nevertheless, we allow deep copies, via the library. Duplication will respect an
 
 ```go
 // EXAMPLE IN
-import "github.com/vulcanca/chinwag-go"
+import "github.com/vulcancreative/chinwag-go"
 seuss := chinwag.Open("Seussian")
 copy := chinwag.Clone(seuss)
 seuss.Close()
@@ -312,7 +312,7 @@ Occasionally, one needs to make modifications directly to a dictionary instance.
 // EXAMPLE IN
 import (
 	"strings"
-	"github.com/vulcanca/chinwag-go"
+	"github.com/vulcancreative/chinwag-go"
 )
 caps := chinwag.OpenWithName("Caps")
 caps.PlaceSlice([]string{"these", "words", "will", "be", "capitalized"})
@@ -342,7 +342,7 @@ By default, when closing a dictionary, a blank dictionary is returned. This valu
 
 ```go
 // EXAMPLE IN
-import "github.com/vulcanca/chinwag-go"
+import "github.com/vulcancreative/chinwag-go"
 seuss := Chinwag.OpenEmbedded("Seussian")
 latin := Chinwag.OpenEmbedded("Latin")
 latin.Close()
@@ -388,7 +388,7 @@ Embedded dictionaries have already been thoroughly tested, and need no further v
 
 ```go
 // EXAMPLE IN
-import "github.com/vulcanca/chinwag-go"
+import "github.com/vulcancreative/chinwag-go"
 blank := chinwag.Open()
 err := blank.Validate()
 if err != nil {
@@ -419,7 +419,7 @@ It is possible to allow for generation using only the defaults, and, subsequentl
 // EXAMPLE IN
 import (
 	"fmt"
-	"github.com/vulcanca/chinwag-go"
+	"github.com/vulcancreative/chinwag-go"
 )
 seuss := chinwag.OpenEmbedded("Seussian")
 output, err := chinwag.Generate(seuss, chinwag.Words, 10, 20)
