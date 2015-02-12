@@ -72,7 +72,7 @@ seuss: {
 		[I, a], [TV, am, an, as, at, be, ...
 		[Mordecai Ali Van Allen O'Shea]
 	]
-	// contains filtered or unexported fields
+	// contains filtered or unexposed fields
 }
 
 latin: {
@@ -83,7 +83,7 @@ latin: {
 		[a, b, c, d, e, f, k, l, m, n, o, ...
 		semicircumferentia, supersubstantialis, supertriparticular]
 	]
-	// contains filtered or unexported fields
+	// contains filtered or unexposed fields
 }
 ```
 
@@ -119,7 +119,7 @@ noise: {
 		[g, s, u, z, l, h, i, a, m, v, o, q, ...
 		pzhvbzvnsdozcuxpgldrwylvedosnbbktoyi]
 	]
-	// contains filtered or unexported fields
+	// contains filtered or unexposed fields
 }
 ```
 
@@ -145,7 +145,7 @@ blank: {
 	IsSorted(): false,
 	// the following fields are implicit
 	_: []
-	// contains filtered or unexported fields
+	// contains filtered or unexposed fields
 }
 ```
 
@@ -191,7 +191,7 @@ ungrouped: {
 	_: [
 		[these, are, some, test, words]
 	]
-	// contains filtered or unexported fields
+	// contains filtered or unexposed fields
 }
 
 grouped: {
@@ -202,7 +202,7 @@ grouped: {
 	_: [
 		[these, words], [will], [be], [sorted]
 	]
-	// contains filtered or unexported fields
+	// contains filtered or unexposed fields
 }
 ```
 
@@ -241,7 +241,7 @@ sorted: {
 	_ : [
 		[a], [is], [test, this], [quick]
 	]
-	// contains filtered or unexported fields
+	// contains filtered or unexposed fields
 }
 
 pruned: {
@@ -252,7 +252,7 @@ pruned: {
 	_ : [
 		[something], [another], [done]
 	]
-	// contains filtered or unexported fields
+	// contains filtered or unexposed fields
 }
 
 cleaned: {
@@ -263,7 +263,7 @@ cleaned: {
 	_: [
 		[first, third], [second]
 	]
-	// contains filtered or unexported fields
+	// contains filtered or unexposed fields
 }
 ```
 
@@ -290,7 +290,7 @@ seuss: {
 	IsSorted(): false,
 	// the following fields are implicit
 	_ : []
-	// contains filtered or unexported fields
+	// contains filtered or unexposed fields
 }
 
 copy: {
@@ -302,7 +302,7 @@ copy: {
 		[I, a], [TV, am, an, as, at, be, ...
 		[Mordecai Ali Van Allen O'Shea]
 	]
-	// contains filtered or unexported fields
+	// contains filtered or unexposed fields
 }
 ```
 
@@ -334,7 +334,7 @@ caps: {
 	_: [
 		[THESE, WORDS], [WILL], [BE], [CAPITALIZED]
 	]
-	// contains filtered or unexported fields
+	// contains filtered or unexposed fields
 }
 ```
 
@@ -362,7 +362,7 @@ seuss: {
 	Length(): 0,
 	// the following fields are implicit
 	_: []
-	// contains filtered or unexported fields
+	// contains filtered or unexposed fields
 }
 
 latin: {
@@ -370,7 +370,7 @@ latin: {
 	Length(): 0,
 	// the following fields are implicit
 	_: []
-	// contains filtered or unexported fields
+	// contains filtered or unexposed fields
 }
 
 blank: {
@@ -378,7 +378,7 @@ blank: {
 	Length(): 0,
 	// the following fields are implicit
 	_: []
-	// contains filtered or unexported fields
+	// contains filtered or unexposed fields
 }
 ```
 
