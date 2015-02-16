@@ -309,7 +309,7 @@ copy: {
 
 ### In-Place Modification
 
-Occasionally, one needs to make modifications directly to a dictionary instance. We allow for modifying the instance's internal entries directly via the Tweak method, which takes a handler. This is particularly useful for, say, converting all entries to uppercase.
+Occasionally, one needs to make modifications directly to a dictionary instance. We allow for modifying the instance's internal entries directly via the Tweak method, which takes a handler (function pointer). This is particularly useful for, say, converting all entries to uppercase.
 
 ```go
 // EXAMPLE IN
