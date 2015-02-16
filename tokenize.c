@@ -49,7 +49,7 @@ cwdict_t tokenize
   free(mutable_buffer);
 
   // clean up dict
-  dict = cwdict_prune(dict, true);
+  dict = cwdict_prune(dict, true, false);
 
   return dict;
 }

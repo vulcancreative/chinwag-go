@@ -1,5 +1,9 @@
 #include "chinwag.h"
 
+cw_t cw_default_type = CW_WORDS;
+unsigned long cw_default_min_output = 1;
+unsigned long cw_default_max_output = 5;
+
 char* chinwag
 (cw_t type, unsigned long min, unsigned long max, cwdict_t dict, cwerror_t* e)
 {
@@ -105,7 +109,7 @@ char* cw_ltr_rng
   }
 
   // post-process dict (pass utility::capitalize function as parameter)
-  temp = cwdict_prune(temp, false);
+  temp = cwdict_prune(temp, false, false);
   temp = cwdict_map(temp, capitalize);
   result = cwdict_join(temp, " ");
 
@@ -291,4 +295,10 @@ char* cw_pgf_rng
   cwdict_close(master);
 
   return result;
+}
+
+char* chinwag_defaults(cwdict_t dict, cwerror_t* e)
+{
+  return chinwag(cw_default_type, cw_default_min_output, cw_default_max_output,
+  dict, e);
 }

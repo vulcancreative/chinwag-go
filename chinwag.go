@@ -243,11 +243,13 @@ func (dict CWDict) IsSorted() bool {
 
 func (dict *CWDict) Prune() {
   *dict = CWDict(C.cwdict_prune(C.struct_dictionary_container_type(*dict),
-  false))
+  false, false))
 }
 
 func (dict *CWDict) Clean() {
-  *dict = CWDict(C.cwdict_clean(C.struct_dictionary_container_type(*dict)))
+  // *dict = CWDict(C.cwdict_clean(C.struct_dictionary_container_type(*dict)))
+  *dict = CWDict(C.cwdict_prune(C.struct_dictionary_container_type(*dict),
+  true, false))
 }
 
 // in-place modification

@@ -41,7 +41,7 @@ cwdict_t cwdict_sort
 (cwdict_t dict);
 
 cwdict_t cwdict_prune
-(cwdict_t dict, bool sorted);
+(cwdict_t dict, bool sorted, bool deep);
 
 cwdict_t cwdict_clean // aliases cwdict_prune(dict, true)
 (cwdict_t dict);

@@ -1,5 +1,5 @@
-#ifndef __LATIN_M2NMAD4K_H
-#define __LATIN_M2NMAD4K_H
+#ifndef __LATIN_9BWCXPY1_H
+#define __LATIN_9BWCXPY1_H
 
 #include "chinwag.h"
 

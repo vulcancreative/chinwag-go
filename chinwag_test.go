@@ -303,7 +303,7 @@ func TestChinwagPrune(t *testing.T) {
   small_mess.Prune()
 
   if small_mess.String() != string(testcase_pruned) {
-    t.Error("flooded and pruned \"small_mess\" does not equal testcase")
+    t.Errorf("flooded and pruned \"small_mess\" does not equal testcase\n\nexpected :\n%s\n\ngot : \n%s\n", testcase_pruned, small_mess)
   }
 }
 

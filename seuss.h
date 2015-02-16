@@ -1,5 +1,5 @@
-#ifndef __SEUSS_BGA6TYU2_H
-#define __SEUSS_BGA6TYU2_H
+#ifndef __SEUSS_U61SDKDM_H
+#define __SEUSS_U61SDKDM_H
 
 #include "chinwag.h"
 
