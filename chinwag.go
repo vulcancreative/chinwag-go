@@ -52,6 +52,12 @@ func Generate(dict CWDict, kind CWType, min, max uint64) (string, *ErrorType) {
   cwerror := dict.Validate()
   if cwerror != nil { return "", cwerror }
 
+  // TODO : not currently a primary feature in core library
+  if max > 10000 {
+    var go_error ErrorType = MaxTooHigh
+    return "", &go_error
+  }
+
   var err C.cwerror_t
   result := C.chinwag(C.cw_t(kind), C.ulong(min), C.ulong(max),
   C.struct_dictionary_container_type(dict), &err)

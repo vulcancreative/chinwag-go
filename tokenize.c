@@ -10,17 +10,17 @@ U32 stringify_file
   fseek(fp, 0L, SEEK_END);
   sz = ftell(fp);
   fseek(fp, 0L, SEEK_SET);
-  *buffer = (char*)malloc(sizeof(char) * (sz + 1));
+  *buffer = (char*)malloc((U32)sizeof(char) * (U32)(sz + 1));
   if(*buffer == NULL) return 0;
 
   // read file into file buffer
-  size_t len = fread(*buffer, sizeof(char), sz, fp);
+  size_t len = fread(*buffer, (U32)sizeof(char), (U32)sz, fp);
   if (len == 0) fputs("Error reading file", stderr);
   else (*buffer)[++len] = '\0'; // just to be safe
 
   fseek(fp, 0L, SEEK_SET);
 
-  return sz;
+  return (U32)sz;
 }
 
 cwdict_t tokenize

@@ -52,7 +52,7 @@ U32 count(char* string, char const* delimiters)
 char* substring_with_size(const char* string, U32 start, U32 end)
 {
   char* result = NULL;
-  U32 len = strlen(string), size = end - start;
+  U32 len = (U32)strlen(string), size = end - start;
 
   if(len == 0 || start > end || start >= len || end >= len) return result;
 
@@ -75,7 +75,7 @@ char* substring_with_size(const char* string, U32 start, U32 end)
 char* sample_substring_with_size(const char* string, U32 size)
 {
   char* result = NULL;
-  U32 len = strlen(string), access = 0, difference = 0;
+  U32 len = (U32)strlen(string), access = 0, difference = 0;
 
   if(len == 0 || len < size || size == 0) return result;
 
@@ -96,13 +96,13 @@ char* sample_substring_with_size(const char* string, U32 size)
     result = memcpy(result, &string[access], size);
     result[size] = '\0';
   }
-  
+
   return result;
 }
 
 char* add_suffix(char* string, char* suffix)
 {
-  U32 len = strlen(string) + strlen(suffix);
+  U32 len = (U32)strlen(string) + (U32)strlen(suffix);
   char* temp = (char*)malloc(len + 1);
 
   strcpy(temp, string);

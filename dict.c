@@ -55,7 +55,7 @@ cwdrow_t cwdrow_add_word
 (cwdrow_t drow, const char* word)
 {
   // cache strlen of word
-  U32 len = strlen(word);
+  U32 len = (U32)strlen(word);
 
   if(len > 0)
   {
@@ -96,7 +96,7 @@ cwdrow_t cwdrow_sort
     if(cwdrow_word_blank(drow, i) && cwdrow_word_present(drow, i + 1))
     {
       // bubble next one into current one
-      U32 len = strlen(drow.words[i + 1]);
+      U32 len = (U32)strlen(drow.words[i + 1]);
 
       // fprintf(stdout, "drow.words[i] : %s\n", drow.words[i]);
       if(drow.words[i] != NULL) free(drow.words[i]);
@@ -165,7 +165,7 @@ char* cwdrow_sample
   // immediately fail if empty
   if(drow.count == 0) return NULL;
 
-  U32 max = (drow.count == 1 ? 0 : drow.count - 1);
+  U32 max = (drow.count == 1 ? 0 : (U32)(drow.count - 1));
   U32 internal = (max == 0 ? 0 : motherr(0, max));
 
   return drow.words[internal];
@@ -186,7 +186,7 @@ void puts_cwdrow
 (cwdrow_t drow)
 {
   #ifdef DEBUG
-  fprintf(stdout, "(%d)", drow.count);
+  fprintf(stdout, "(%lu)", drow.count);
   #endif
 
   fprintf(stdout, "[");
@@ -299,7 +299,7 @@ cwdict_t cwdict_place_word_strict
 (cwdict_t dict, const char* word)
 {
   bool inserted = false;
-  U32 len = strlen(word);
+  U32 len = (U32)strlen(word);
 
   for(U32 i = 0; i != dict.count; ++i)
   {
@@ -439,7 +439,7 @@ cwdict_t cwdict_prune
         if(marked && i == dict.count - 1)
         {
           dict.count -= 1;
-          size = dict.count * sizeof(cwdrow_t);
+          size = (U32)dict.count * (U32)sizeof(cwdrow_t);
 
           dict.drows = (cwdrow_t*)realloc(dict.drows, size);
           break;
@@ -468,7 +468,7 @@ cwdict_t cwdict_prune
 
     if(null_count > 0)
     {
-      len = dict.drows[i].count - null_count;
+      len = (U32)(dict.drows[i].count) - null_count;
       size = sizeof(char*) * len;
 
       dict.drows[i].words = (char**)realloc(dict.drows[i].words, size);
@@ -510,7 +510,7 @@ cwdict_t cwdict_map
     for(U32 j = 0; j != dict.drows[i].count; ++j)
     {
       strcpy(temp, (*f)(dict.drows[i].words[j]));
-      len = strlen(temp);
+      len = (U32)strlen(temp);
 
       // only resize if necessary
       if(len != strlen(dict.drows[i].words[j]))
@@ -712,8 +712,14 @@ U32 cwdict_largest
 
   for(U32 i = 0; i != dict.count; ++i)
   {
-    if(i == 0) largest = dict.drows[i].largest;
-    else if(dict.drows[i].largest > largest) largest=dict.drows[i].largest;
+    if(i == 0)
+    {
+      largest = (U32)(dict.drows[i].largest);
+    }
+    else if((U32)(dict.drows[i].largest) > largest)
+    {
+      largest = (U32)(dict.drows[i].largest);
+    }
   }
 
   return largest;
@@ -725,7 +731,7 @@ char* cwdict_sample
   // immediately fail if empty
   if(dict.count == 0) return NULL;
 
-  U32 max = (dict.count == 1 ? 0 : dict.count - 1);
+  U32 max = (dict.count == 1 ? 0 : (U32)(dict.count - 1));
   U32 external = (max == 0 ? 0 : motherr(0, max));
 
   return cwdrow_sample(dict.drows[external]);
@@ -734,7 +740,7 @@ char* cwdict_sample
 char* cwdict_join
 (cwdict_t dict, char const* delimiter)
 {
-  U32 len = 0, del_len = strlen(delimiter);
+  U32 len = 0, del_len = (U32)strlen(delimiter);
   char* string = NULL; char* temp = NULL;
 
   for(U32 i = 0; i != dict.count; ++i)
@@ -742,8 +748,9 @@ char* cwdict_join
     for(U32 j = 0; j != dict.drows[i].count; ++j)
     {
       if(dict.drows[i].words[j] == NULL) continue;
-      else if(string) len = strlen(string) + strlen(dict.drows[i].words[j]);
-      else len = strlen(dict.drows[i].words[j]);
+      else if(string) len = (U32)strlen(string) +
+      (U32)strlen(dict.drows[i].words[j]);
+      else len = (U32)strlen(dict.drows[i].words[j]);
 
       if(i <= dict.count - 1 && j <= dict.drows[i].count - 1)
       { len += del_len; }

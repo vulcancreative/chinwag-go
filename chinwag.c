@@ -52,7 +52,7 @@ char* cw_ltr_rng
 
 
   cwdict_t temp = cwdict_open();
-  I32 amount = motherr(min,max), total = 0; U32 len = 0;
+  I32 amount = motherr((U32)min, (U32)max), total = 0; U32 len = 0;
   char* s = (char*)malloc(CW_SMALL_BUFFER); char* sample = NULL;
   char* result = NULL; char* vowels = "aeiou";
 
@@ -69,7 +69,7 @@ char* cw_ltr_rng
     else
     {
       s = strcpy(s, cwdict_sample(dict));
-      len = strlen(s); total += len; s[len] = '\0';
+      len = (U32)strlen(s); total += len; s[len] = '\0';
       if(len > amount || include(s, " ") || include(s, "-")) continue;
     }
 
@@ -135,7 +135,7 @@ char* cw_wrd_rng
   }
 
   cwdict_t temp = cwdict_open();
-  U32 amount = motherr(min, max), total = cwdict_length(dict);
+  U32 amount = motherr((U32)min, (U32)max), total = cwdict_length(dict);
   char* sample = NULL; char* result = NULL;
   bool invalid = true;
 
@@ -183,7 +183,7 @@ char* cw_snt_rng
   }
 
   cwdict_t master = cwdict_open(), temp; cwdrow_t selected;
-  U32 word_amount = 0, last = 0, amount = motherr(min, max), now = 0,
+  U32 word_amount = 0, last = 0, amount = motherr((U32)min, (U32)max), now = 0,
   len = 0, t_minus = 0; U8 comma = 0; I32 punct = 0;
   U32* no_dice = (U32*)malloc(sizeof(U32) * CW_SMALL_BUFFER);
   char* sample = NULL; char* result = NULL; char* s = NULL;
@@ -205,7 +205,7 @@ char* cw_snt_rng
       if(j == 0) now = motherr(5, 10);
       else if(j == word_amount - 1) now = motherr(3, 8);
       else if(t_minus > 0) { now = motherr(1, 10); --t_minus; }
-      else if(last <= 10) now = motherr(1, dict.count - 1);
+      else if(last <= 10) now = motherr(1, (U32)(dict.count - 1));
       else if(last > 10 || last <= 2) { now = motherr(6, 10); t_minus = 3; }
 
       selected = dict.drows[now];
@@ -218,7 +218,7 @@ char* cw_snt_rng
       if(comma && j == comma - 1)
       {
         // get local copy of sample for modification
-        len = strlen(sample);
+        len = (U32)strlen(sample);
         s = (char*)malloc(strlen(sample) + 1);
 
         strcpy(s, sample);
@@ -277,7 +277,7 @@ char* cw_pgf_rng
   }
 
   char* result = NULL; char* sentences = NULL;
-  U32 amount = motherr(min, max), sentence_amount = 0;
+  U32 amount = motherr((U32)min, (U32)max), sentence_amount = 0;
   cwdict_t master = cwdict_open();
 
   for(U32 i = 0; i != amount; ++i)

@@ -391,7 +391,7 @@ U32 hash(const char* string)
     while(b != '\0')
     {
         ++count[0];
-        
+
         if(base > 4 && base <= 8) count[1] += b;
 
         if(isalpha(b))
@@ -446,12 +446,12 @@ U32 hash(const char* string)
     ret[7] = sum of all char's cast to U32's;
     ret[8] = number of times the letter 'e' occured;
     ret[9] = ret[7] + sum of all digits that occured;
-   // 
+   //
 }
 */
 U32 hash(const char* string)
 {
-    U32 length = strlen(string);
+    U32 length = (U32)strlen(string);
     U32* current = (U32*) string;
     U32 crc = ~0;
 
@@ -485,7 +485,7 @@ U32 hash(const char* string)
 U32 hashr(const char* string, U32 min, U32 max)
 {
     if(min == max) return min;
-    
+
     return min + (hash(string) % (max - min + 1));
 }
 
@@ -516,7 +516,7 @@ U32 mother()
     number += (matka[1] << 12) + (matka[2] >> 6)
            +  (matka[3] << 10) + (matka[4] >> 8)
            +  (matka[0]^(matka[0] >> 7));
-    
+
     // shift values in the array toward the front (i.e. "[0]")
     matka[0] = matka[1]; matka[1] = matka[2];
     matka[2] = matka[3]; matka[3] = matka[4];
@@ -531,7 +531,7 @@ U32 mother()
 U32 motherr(U32 min, U32 max)
 {
     if(min == max) return min;
-    
+
     return min + (mother() % (max - min + 1));
 }
 
